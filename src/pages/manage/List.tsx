@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./List.module.scss";
-import QuestionCard from "../components/QuestionCard";
+import QuestionCard from "../../components/QuestionCard";
 const rawQuestionList = [
   {
     _id: "q1",
