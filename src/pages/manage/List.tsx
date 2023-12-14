@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./List.module.scss";
 import QuestionCard from "../../components/QuestionCard";
+import { useTitle } from "ahooks";
 const rawQuestionList = [
   {
     _id: "q1",
@@ -29,6 +30,7 @@ const rawQuestionList = [
 ];
 
 const List: React.FC = () => {
+  useTitle('我的问卷')
   const [questionList, setQuestionList] = useState(rawQuestionList);
   return (
     <>
