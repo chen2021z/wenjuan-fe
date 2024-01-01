@@ -3,7 +3,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import styles from "./ManageLayout.module.scss";
 import { Button, Space,Divider } from "antd";
 import { PlusOutlined, BarsOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
-const MainLayout: React.FC = () => {
+const MainLayout: React.FC = () => { 
   const { pathname } = useLocation()
   const nav = useNavigate()
   return (

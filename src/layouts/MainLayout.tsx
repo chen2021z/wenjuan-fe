@@ -2,13 +2,14 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Layout } from "antd";
 import style from "./MainLayout.module.scss";
+import Logo from "../components/Logo";
 const { Header, Content, Footer } = Layout;
 const MainLayout: React.FC = () => {
   return (
     <Layout>
-      <Header className={style.heaader}>
+      <Header className={style.header}>
         <div className={style.left}>
-          logo
+          <Logo></Logo>
         </div>
         <div className={style.right}>
           login
