@@ -34,7 +34,7 @@ const Register: FC = () => {
         </Space>
       </div>
       <div>
-        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 16 }} onFinish={onFinish}>
+        <Form labelCol={{ span: 6 }} wrapperCol={{ span: 18 }} onFinish={onFinish}>
           <Form.Item
             label="用户名"
             name="username"
@@ -75,7 +75,7 @@ const Register: FC = () => {
           <Form.Item label="昵称" name="nickname">
             <Input />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+          <Form.Item wrapperCol={{ offset: 6}}>
             <Space>
               <Button type="primary" htmlType="submit">
                 注册
