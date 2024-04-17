@@ -25,8 +25,7 @@ instance.interceptors.response.use(res => {
     if (msg) {
       message.error(msg)
     }
-
-    throw new Error(msg)
+    message.error(msg || '请求错误')
   }
 
   return data as any
