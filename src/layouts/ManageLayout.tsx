@@ -4,22 +4,35 @@ import styles from './ManageLayout.module.scss'
 import { Button, Space, Divider, message } from 'antd'
 import { PlusOutlined, BarsOutlined, StarOutlined, DeleteOutlined } from '@ant-design/icons'
 import { createQuestionService } from '../services/question'
+import { useRequest } from 'ahooks'
 const MainLayout: React.FC = () => {
   const { pathname } = useLocation()
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
 
   const nav = useNavigate()
 
-  const handleClick = async () => {
-    setLoading(true)
-    const data = await createQuestionService()
-    const { id } = data
-    if (id) {
-      nav(`/question/edit/${id}`)
+  // const handleClick = async () => {
+  //   setLoading(true)
+  //   const data = await createQuestionService()
+  //   const { id } = data
+  //   if (id) {
+  //     nav(`/question/edit/${id}`)
+  //     message.success('创建成功')
+  //   }
+  //   setLoading(false)
+  // }
+
+  const {
+    loading,
+    error,
+    run: handleClick,
+  } = useRequest(createQuestionService, {
+    manual: true,
+    onSuccess(result) {
+      nav(`/question/edit/${result.id}`)
       message.success('创建成功')
-    }
-    setLoading(false)
-  }
+    },
+  })
 
   return (
     <div className={styles.container}>
