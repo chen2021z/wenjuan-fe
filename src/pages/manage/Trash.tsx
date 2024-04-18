@@ -4,32 +4,15 @@ import { Typography, Empty, Table, Tag, Button, Space, Modal, Spin, message } fr
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import styles from './common.module.scss'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 
 const { Title } = Typography
 const { confirm } = Modal
 
-const rawQuestionList = [
-  {
-    _id: 'q1',
-    title: '问卷1',
-    isPublished: false,
-    isStar: true,
-    answerCount: 5,
-    createdAt: '2023-12-14',
-  },
-  {
-    _id: 'q2',
-    title: '问卷2',
-    isPublished: true,
-    isStar: true,
-    answerCount: 5,
-    createdAt: '2023-12-14',
-  },
-]
-
 const Trash: FC = () => {
   useTitle('回收站')
-  const [questionList, setQuestionList] = useState(rawQuestionList)
+  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+  const { list: questionList = [], total = 0 } = data
 
   // 记录选中的 id
   const [selectedIds, setSelectedIds] = useState<string[]>([])
@@ -111,7 +94,12 @@ const Trash: FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length === 0 && <Empty description="暂无数据" />}
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
+        {!loading && questionList.length === 0 && <Empty description="暂无数据" />}
         {questionList.length > 0 && TableElem}
       </div>
       {/* <div className={styles.footer}>

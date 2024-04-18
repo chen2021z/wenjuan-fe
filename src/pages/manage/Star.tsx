@@ -2,32 +2,17 @@ import React, { useState } from 'react'
 import styles from './common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useTitle } from 'ahooks'
-import { Typography, Empty } from 'antd'
+import { Typography, Empty, Spin } from 'antd'
 import ListSearch from '../../components/ListSearch'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 
 const { Title } = Typography
-const rawQuestionList = [
-  {
-    _id: 'q1',
-    title: '问卷1',
-    isPublished: false,
-    isStar: true,
-    answerCount: 5,
-    createdAt: '2023-12-14',
-  },
-  {
-    _id: 'q2',
-    title: '问卷2',
-    isPublished: true,
-    isStar: true,
-    answerCount: 5,
-    createdAt: '2023-12-14',
-  },
-]
 
 const Star: React.FC = () => {
   useTitle('星标问卷')
-  const [questionList, setQuestionList] = useState(rawQuestionList)
+  const { data = {}, loading } = useLoadQuestionListData({ isStar: true })
+  const { list: questionList = [], total = 0 } = data
+
   return (
     <>
       <div className={styles.header}>
@@ -39,9 +24,14 @@ const Star: React.FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length === 0 && <Empty description="暂无数据" />}
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
+        {!loading && questionList.length === 0 && <Empty description="暂无数据" />}
         {questionList.length > 0 &&
-          questionList.map(q => {
+          questionList.map((q: any) => {
             const { _id } = q
             return <QuestionCard key={_id} {...q}></QuestionCard>
           })}
