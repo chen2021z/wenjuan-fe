@@ -4,13 +4,13 @@ import QuestionCard from '../../components/QuestionCard'
 import { useRequest, useTitle } from 'ahooks'
 import { Spin, Typography } from 'antd'
 import ListSearch from '../../components/ListSearch'
-import { getQuestionListService } from '../../services/question'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 
 const { Title } = Typography
 
 const List: React.FC = () => {
   useTitle('我的问卷')
-  const { data = {}, loading } = useRequest(getQuestionListService)
+  const { data = {}, loading } = useLoadQuestionListData()
   const { list: questionList = [], total = 0 } = data
 
   return (
