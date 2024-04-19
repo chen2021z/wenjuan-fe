@@ -5,6 +5,8 @@ import { useDebounceFn, useRequest, useTitle } from 'ahooks'
 import { Spin, Typography } from 'antd'
 import ListSearch from '../../components/ListSearch'
 import { useSearchParams } from 'react-router-dom'
+import { getQuestionListService } from '../../services/question'
+import { LIST_PAGE_PARAM_KEY, LIST_PAGE_SIZE } from '../../constant'
 
 const { Title } = Typography
 
@@ -17,20 +19,39 @@ const List: React.FC = () => {
   const havaMoreData = total > list.length
   const loadingRef = useRef<HTMLDivElement>(null)
 
+  // 加载数据
+  const { run: load, loading } = useRequest(
+    async () => {
+      const data = await getQuestionListService({
+        page,
+        pageSize: LIST_PAGE_SIZE,
+        keyword: searchParams.get(LIST_PAGE_PARAM_KEY) || '',
+      })
+      return data
+    },
+    {
+      manual: true,
+      onSuccess(data) {
+        const { list: newAddList = [], total = 0 } = data
+        setList(list.concat(newAddList))
+        setTotal(total)
+        setPage(page + 1)
+      },
+    }
+  )
+
   /** 触发加载 - 防抖 */
   const { run: tryLoadMore } = useDebounceFn(
     () => {
       const ele = loadingRef.current
       if (ele === null) return
       const { bottom } = ele.getBoundingClientRect()
-      console.log('bottom', bottom, window.innerHeight)
-
-      if (bottom <= window.innerHeight) {
-        console.log('到底部了')
+      if (bottom - 500 <= window.innerHeight) {
+        load()
       }
     },
     {
-      wait: 1000,
+      wait: 500,
     }
   )
 
@@ -59,12 +80,6 @@ const List: React.FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {
-          <div style={{ textAlign: 'center' }}>
-            <Spin />
-          </div>
-        }
-        <div style={{ height: '10000px' }}></div>
         {/* 问卷列表 */}
         {list.length > 0 &&
           list.map((q: any) => {
@@ -73,7 +88,13 @@ const List: React.FC = () => {
           })}
       </div>
       <div className={styles.footer}>
-        <div ref={loadingRef}>loadMore 上划加载更多...</div>
+        {loading ? (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        ) : (
+          <div ref={loadingRef}>loadMore 上划加载更多...</div>
+        )}
       </div>
     </>
   )

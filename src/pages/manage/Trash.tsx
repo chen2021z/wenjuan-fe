@@ -100,7 +100,7 @@ const Trash: FC = () => {
           </div>
         )}
         {!loading && questionList.length === 0 && <Empty description="暂无数据" />}
-        {questionList.length > 0 && TableElem}
+        {!loading && questionList.length > 0 && TableElem}
       </div>
       {/* <div className={styles.footer}>
         <ListPage total={total} />

@@ -31,7 +31,7 @@ const Star: React.FC = () => {
           </div>
         )}
         {!loading && questionList.length === 0 && <Empty description="暂无数据" />}
-        {questionList.length > 0 &&
+        {!loading && questionList.length > 0 &&
           questionList.map((q: any) => {
             const { _id } = q
             return <QuestionCard key={_id} {...q}></QuestionCard>
