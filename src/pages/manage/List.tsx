@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useDebounceFn, useRequest, useTitle } from 'ahooks'
@@ -15,11 +15,19 @@ const List: React.FC = () => {
   const [list, setList] = useState([]) // 全部的列表数据，上划加载更多
   const [total, setTotal] = useState(0)
   const havaMoreData = total > list.length
+  const loadingRef = useRef<HTMLDivElement>(null)
 
   /** 触发加载 - 防抖 */
   const { run: tryLoadMore } = useDebounceFn(
     () => {
-      console.log('loadmore')
+      const ele = loadingRef.current
+      if (ele === null) return
+      const { bottom } = ele.getBoundingClientRect()
+      console.log('bottom', bottom, window.innerHeight)
+
+      if (bottom <= window.innerHeight) {
+        console.log('到底部了')
+      }
     },
     {
       wait: 1000,
@@ -64,7 +72,9 @@ const List: React.FC = () => {
             return <QuestionCard key={_id} {...q}></QuestionCard>
           })}
       </div>
-      <div className={styles.footer}>loadMore 上划加载更多...</div>
+      <div className={styles.footer}>
+        <div ref={loadingRef}>loadMore 上划加载更多...</div>
+      </div>
     </>
   )
 }
