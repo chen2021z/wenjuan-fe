@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import styles from './common.module.scss'
 import QuestionCard from '../../components/QuestionCard'
 import { useDebounceFn, useRequest, useTitle } from 'ahooks'
-import { Spin, Typography } from 'antd'
+import { Empty, Spin, Typography } from 'antd'
 import ListSearch from '../../components/ListSearch'
 import { useSearchParams } from 'react-router-dom'
 import { getQuestionListService } from '../../services/question'
-import { LIST_PAGE_PARAM_KEY, LIST_PAGE_SIZE } from '../../constant'
+import { LIST_SEARCH_PARAM_KEY, LIST_PAGE_SIZE } from '../../constant'
 
 const { Title } = Typography
 
@@ -18,6 +18,9 @@ const List: React.FC = () => {
   const [total, setTotal] = useState(0)
   const havaMoreData = total > list.length
   const loadingRef = useRef<HTMLDivElement>(null)
+  const [started, setStarted] = useState(false) // 是否已经开始加载（防抖，有延迟时间）
+
+  const keyword = searchParams.get(LIST_SEARCH_PARAM_KEY) || ''
 
   // 加载数据
   const { run: load, loading } = useRequest(
@@ -25,7 +28,7 @@ const List: React.FC = () => {
       const data = await getQuestionListService({
         page,
         pageSize: LIST_PAGE_SIZE,
-        keyword: searchParams.get(LIST_PAGE_PARAM_KEY) || '',
+        keyword,
       })
       return data
     },
@@ -40,6 +43,14 @@ const List: React.FC = () => {
     }
   )
 
+  // keyword 变化时，重置信息，是的loading可见重新请求数据
+  useEffect(() => {
+    setStarted(false)
+    setPage(1)
+    setList([])
+    setTotal(0)
+  }, [keyword])
+
   /** 触发加载 - 防抖 */
   const { run: tryLoadMore } = useDebounceFn(
     () => {
@@ -48,6 +59,7 @@ const List: React.FC = () => {
       const { bottom } = ele.getBoundingClientRect()
       if (bottom - 500 <= window.innerHeight) {
         load()
+        setStarted(true)
       }
     },
     {
@@ -69,6 +81,13 @@ const List: React.FC = () => {
     }
   }, [])
 
+  const loadMoreContentElem = useMemo(() => {
+    if (!started || loading) return <Spin />
+    if (total === 0) return <Empty description="暂无数据" />
+    if (!havaMoreData) return <span>没有更多了</span>
+    return <span>加载下一页</span>
+  }, [total, loading, havaMoreData])
+
   return (
     <>
       <div className={styles.header}>
@@ -88,13 +107,7 @@ const List: React.FC = () => {
           })}
       </div>
       <div className={styles.footer}>
-        {loading ? (
-          <div style={{ textAlign: 'center' }}>
-            <Spin />
-          </div>
-        ) : (
-          <div ref={loadingRef}>loadMore 上划加载更多...</div>
-        )}
+        <div ref={loadingRef}>{loadMoreContentElem}</div>
       </div>
     </>
   )
