@@ -5,22 +5,36 @@ import { Link, useNavigate } from 'react-router-dom'
 import { LOGIN_PATHNAME } from '../router'
 import { registerService } from '../services/user'
 import styles from './Register.module.scss'
+import { useRequest } from 'ahooks'
 
 const { Title } = Typography
 
 type FieldType = {
-  username?: string;
-  password?: string;
-  confirm?: string;
-  nickname?: string;
-};
+  username?: string
+  password?: string
+  confirm?: string
+  nickname?: string
+}
 
 const Register: FC = () => {
   const nav = useNavigate()
 
+  const { run } = useRequest(
+    async values => {
+      const { username, password, nickname } = values
+      await registerService(username, password, nickname)
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('注册成功')
+        nav(LOGIN_PATHNAME)
+      },
+    }
+  )
+
   const onFinish = (values: FieldType) => {
-    console.log(values);
-    
+    run(values)
   }
 
   return (
@@ -75,7 +89,7 @@ const Register: FC = () => {
           <Form.Item label="昵称" name="nickname">
             <Input />
           </Form.Item>
-          <Form.Item wrapperCol={{ offset: 6}}>
+          <Form.Item wrapperCol={{ offset: 6 }}>
             <Space>
               <Button type="primary" htmlType="submit">
                 注册
