@@ -6,6 +6,7 @@ import { useRequest } from 'ahooks'
 import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME, LOGIN_PATHNAME } from '../router'
 import { loginService } from '../services/user'
 import styles from './Login.module.scss'
+import { setToken } from '../utils/user-token'
 
 const { Title } = Typography
 
@@ -36,7 +37,10 @@ const Login: FC = () => {
     async (username: string, password: string) => await loginService(username, password),
     {
       manual: true,
-      onSuccess() {
+      onSuccess(result) {
+        const { token = '' } = result
+        setToken(token)
+
         message.success('登录成功')
         nav(MANAGE_INDEX_PATHNAME) // 导航到我的文件
       },
