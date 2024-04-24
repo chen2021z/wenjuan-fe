@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import { Typography, Space, Form, Input, Button, Checkbox, message } from 'antd'
 import { UserAddOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME } from '../router'
+import { REGISTER_PATHNAME, MANAGE_INDEX_PATHNAME, LOGIN_PATHNAME } from '../router'
 import { loginService } from '../services/user'
 import styles from './Login.module.scss'
 
@@ -32,6 +32,17 @@ function getUserInfoFromStorage() {
 const Login: FC = () => {
   const nav = useNavigate()
 
+  const { run } = useRequest(
+    async (username: string, password: string) => await loginService(username, password),
+    {
+      manual: true,
+      onSuccess() {
+        message.success('登录成功')
+        nav(MANAGE_INDEX_PATHNAME) // 导航到我的文件
+      },
+    }
+  )
+
   const [form] = Form.useForm() // 第三方 hook, 获取form实例
 
   useEffect(() => {
@@ -39,9 +50,10 @@ const Login: FC = () => {
     form.setFieldsValue({ username, password })
   }, [])
 
-
   const onFinish = (values: any) => {
     const { username, password, remember } = values || {}
+
+    run(username, password)
 
     if (remember) {
       rememberUser(username, password)
