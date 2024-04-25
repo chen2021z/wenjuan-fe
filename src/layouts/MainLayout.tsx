@@ -1,28 +1,40 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Layout } from 'antd'
-import style from './MainLayout.module.scss'
+import { Layout, Spin } from 'antd'
 import Logo from '../components/Logo'
 import UserInfo from '../components/UserInfo'
+import useLoadUserData from '../hooks/useLoadUserData'
+import useNavPage from '../hooks/useNavPage'
+import styles from './MainLayout.module.scss'
 
 const { Header, Content, Footer } = Layout
-const MainLayout: React.FC = () => {
+
+const MainLayout: FC = () => {
+  const { waitingUserData } = useLoadUserData()
+  useNavPage(waitingUserData)
+
   return (
     <Layout>
-      <Header className={style.header}>
-        <div className={style.left}>
-          <Logo></Logo>
+      <Header className={styles.header}>
+        <div className={styles.left}>
+          <Logo />
         </div>
-        <div className={style.right}>
-          <UserInfo></UserInfo>
+        <div className={styles.right}>
+          <UserInfo />
         </div>
       </Header>
-      <Layout className={style.main}>
+      <Layout className={styles.main}>
         <Content>
-          <Outlet></Outlet>
+          {waitingUserData ? (
+            <div style={{ textAlign: 'center', marginTop: '60px' }}>
+              <Spin />
+            </div>
+          ) : (
+            <Outlet />
+          )}
         </Content>
       </Layout>
-      <Footer className={style.footer}>小治问卷 &copy;2023 - present. Created by 如约而至</Footer>
+      <Footer className={styles.footer}>低码问卷 &copy;2023 - present. Created by 如约而至</Footer>
     </Layout>
   )
 }
