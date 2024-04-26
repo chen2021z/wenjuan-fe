@@ -16,7 +16,7 @@ export type ComponentInfoType = {
 }
 
 export type ComponentsStateType = {
-  selectedId?: string
+  selectedId: string
   componentList: Array<ComponentInfoType>
   copiedComponent?: ComponentInfoType | null
 }
@@ -36,10 +36,10 @@ export const componentsSlice = createSlice({
       return action.payload
     },
 
-    // // 修改 selectedId
-    // changeSelectedId: produce((draft: ComponentsStateType, action: PayloadAction<string>) => {
-    //   draft.selectedId = action.payload
-    // }),
+    // 修改 selectedId
+    changeSelectedId: produce((draft: ComponentsStateType, action: PayloadAction<string>) => {
+      draft.selectedId = action.payload
+    }),
 
     // // 添加新组件
     // addComponent: produce(
@@ -167,7 +167,7 @@ export const componentsSlice = createSlice({
     //   }
     // ),
 
-    // // 移动组件位置
+    // 移动组件位置
     // moveComponent: produce(
     //   (
     //     draft: ComponentsStateType,
@@ -184,7 +184,7 @@ export const componentsSlice = createSlice({
 
 export const {
   resetComponents,
-  // changeSelectedId,
+  changeSelectedId,
   // addComponent,
   // changeComponentProps,
   // removeSelectedComponent,

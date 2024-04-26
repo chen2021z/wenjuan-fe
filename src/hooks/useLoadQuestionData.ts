@@ -23,8 +23,15 @@ const useLoadQuestionData = () => {
   useEffect(() => {
     if (!data) return
     const { title = '', componentList = [] } = data
-    dispatch(resetComponents({ componentList }))
-  },[data])
+
+    // 获取默认的 selectedId
+    let selectedId = ''
+    if (componentList.length > 0) {
+      selectedId = componentList[0].fe_id
+    }
+
+    dispatch(resetComponents({ componentList, selectedId }))
+  }, [data])
 
   // id变化，重新执行 ajax 加载问卷数据
   useEffect(() => {

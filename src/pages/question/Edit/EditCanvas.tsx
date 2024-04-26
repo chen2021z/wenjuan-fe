@@ -1,11 +1,14 @@
-import { FC } from 'react'
+import { FC, MouseEvent } from 'react'
 import QuestionTitle from '../../../components/QuestionComponents/QuestionTitle/Component'
 import styles from './EditCanvas.module.scss'
 import QuestionInput from '../../../components/QuestionComponents/QuestionInput/Component'
 import { Spin } from 'antd'
-import { ComponentInfoType } from '../../../store/componentsReducer'
+import { ComponentInfoType, changeSelectedId } from '../../../store/componentsReducer'
 import { getComponentConfByType } from '../../../components/QuestionComponents'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
+import { useDispatch } from 'react-redux'
+import classNames from 'classnames'
+
 type PropsType = {
   loading: boolean
 }
@@ -22,6 +25,12 @@ function genComponent(componentInfo: ComponentInfoType) {
 
 const EditCanvas: FC<PropsType> = ({ loading }) => {
   const { componentList, selectedId } = useGetComponentInfo()
+  const dispatch = useDispatch()
+
+  const handleClick = (event: MouseEvent, id: string) => {
+    event.stopPropagation()
+    dispatch(changeSelectedId(id))
+  }
 
   if (loading) {
     return (
@@ -34,8 +43,21 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
     <div className={styles.canvas}>
       {componentList.map(c => {
         const { fe_id } = c
+        // 拼接 class name
+        const wrapperDefaultClassName = styles['component-wrapper']
+        const selectedClassName = styles.selected
+        // const lockedClassName = styles.locked
+        const wrapperClassName = classNames({
+          [wrapperDefaultClassName]: true,
+          [selectedClassName]: fe_id === selectedId,
+          // [lockedClassName]: isLocked,
+        })
         return (
-          <div key={fe_id} className={styles['component-wrapper']}>
+          <div
+            key={fe_id}
+            className={wrapperClassName}
+            onClick={e => handleClick(e, fe_id)}
+          >
             <div className={styles.component}>{genComponent(c)}</div>
           </div>
         )
