@@ -24,7 +24,7 @@ const useLoadQuestionData = () => {
     if (!data) return
     const { title = '', componentList = [] } = data
     dispatch(resetComponents({ componentList }))
-  })
+  },[data])
 
   // id变化，重新执行 ajax 加载问卷数据
   useEffect(() => {
