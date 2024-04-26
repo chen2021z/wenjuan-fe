@@ -26,25 +26,25 @@ export type ComponentPropsType = QuestionInputPropsType &
 // type ComponentStatPropsType = QuestionRadioStatPropsType & QuestionCheckboxStatPropsType
 
 // 统一，组件的配置 type
-// export type ComponentConfType = {
-//   title: string
-//   type: string
-//   Component: FC<ComponentPropsType>
-//   PropComponent: FC<ComponentPropsType>
-//   defaultProps: ComponentPropsType
-//   StatComponent?: FC<ComponentStatPropsType>
-// }
+export type ComponentConfType = {
+  title: string
+  type: string
+  Component: FC<ComponentPropsType>
+  PropComponent: FC<ComponentPropsType>
+  defaultProps: ComponentPropsType
+  // StatComponent?: FC<ComponentStatPropsType>
+}
 
 // // 全部的组件配置的列表
-// const componentConfList: ComponentConfType[] = [
-//   QuestionInputConf,
-//   QuestionTitleConf,
-//   QuestionParagraphConf,
-//   QuestionInfoConf,
-//   QuestionTextareaConf,
-//   QuestionRadioConf,
-//   QuestionCheckboxConf,
-// ]
+const componentConfList: ComponentConfType[] = [
+  QuestionInputConf,
+  QuestionTitleConf,
+  // QuestionParagraphConf,
+  // QuestionInfoConf,
+  // QuestionTextareaConf,
+  // QuestionRadioConf,
+  // QuestionCheckboxConf,
+]
 
 // // 组件分组
 // export const componentConfGroup = [
@@ -65,6 +65,6 @@ export type ComponentPropsType = QuestionInputPropsType &
 //   },
 // ]
 
-// export function getComponentConfByType(type: string) {
-//   return componentConfList.find(c => c.type === type)
-// }
+export function getComponentConfByType(type: string) {
+  return componentConfList.find(c => c.type === type)
+}
