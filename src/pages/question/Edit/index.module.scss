@@ -1,8 +1,34 @@
+* {
+
+  /*定义滚动条高宽及背景高宽分别对应横竖滚动条的尺寸*/
+  &::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background-color: #F5F5F5;
+  }
+
+  /*定义滚动条轨道内阴影+圆角*/
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #F5F5F5;
+  }
+
+  /*定义滑块内阴影+圆角*/
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(215, 215, 215, 0.3);
+    background-color: #d3d3d3;
+  }
+}
+
 .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   background-color: #f0f2f5;
+  min-width: 1100px;
+  overflow: hidden;
 }
 
 .content-wrapper {
@@ -41,26 +67,7 @@
         overflow-y: auto;
       }
 
-      /*定义滚动条高宽及背景高宽分别对应横竖滚动条的尺寸*/
-      &::-webkit-scrollbar {
-        width: 12px;
-        // height: 16px;
-        background-color: #F5F5F5;
-      }
 
-      /*定义滚动条轨道内阴影+圆角*/
-      &::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-        background-color: #F5F5F5;
-      }
-
-      /*定义滑块内阴影+圆角*/
-      &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 6px rgba(215, 215, 215, 0.3);
-        background-color: #d3d3d3;
-      }
 
     }
   }
