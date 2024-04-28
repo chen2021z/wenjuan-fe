@@ -41,13 +41,13 @@ export const componentsSlice = createSlice({
       draft.selectedId = action.payload
     }),
 
-    // // 添加新组件
-    // addComponent: produce(
-    //   (draft: ComponentsStateType, action: PayloadAction<ComponentInfoType>) => {
-    //     const newComponent = action.payload
-    //     insertNewComponent(draft, newComponent)
-    //   }
-    // ),
+    // 添加新组件
+    addComponent: produce(
+      (draft: ComponentsStateType, action: PayloadAction<ComponentInfoType>) => {
+        const newComponent = action.payload
+        insertNewComponent(draft, newComponent)
+      }
+    ),
 
     // // 修改组件属性
     // changeComponentProps: produce(
@@ -185,7 +185,7 @@ export const componentsSlice = createSlice({
 export const {
   resetComponents,
   changeSelectedId,
-  // addComponent,
+  addComponent,
   // changeComponentProps,
   // removeSelectedComponent,
   // changeComponentHidden,

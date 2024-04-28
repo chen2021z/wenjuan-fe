@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid'
 import { Typography } from 'antd'
 import { useDispatch } from 'react-redux'
 import { componentConfGroup, ComponentConfType } from '../../../components/QuestionComponents'
-// import { addComponent } from '../../../store/componentsReducer'
+import { addComponent } from '../../../store/componentsReducer'
 import styles from './ComponentLib.module.scss'
 
 const { Title } = Typography
@@ -13,14 +13,14 @@ function genComponent(c: ComponentConfType) {
   const dispatch = useDispatch()
 
   const handleClick = useCallback(() => {
-    // dispatch(
-    //   addComponent({
-    //     fe_id: nanoid(), // 前端生成的 id
-    //     title,
-    //     type,
-    //     props: defaultProps,
-    //   })
-    // )
+    dispatch(
+      addComponent({
+        fe_id: nanoid(), // 前端生成的 id
+        title,
+        type,
+        props: defaultProps,
+      })
+    )
   }, [])
 
   return (
