@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 // import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import {
   removeSelectedComponent,
-  // changeComponentHidden,
+  changeComponentHidden,
   // toggleComponentLocked,
   // copySelectedComponent,
   // pasteCopiedComponent,
@@ -39,7 +39,7 @@ const EditToolbar: FC = () => {
 
   // 隐藏组件
   function handleHidden() {
-    // dispatch(changeComponentHidden({ fe_id: selectedId, isHidden: true }))
+    dispatch(changeComponentHidden({ fe_id: selectedId, isHidden: true }))
   }
 
   // 锁定组件
