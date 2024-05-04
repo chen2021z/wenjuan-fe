@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import { Button, Typography, Space, Input, message } from 'antd'
 import { LeftOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
-// import EditToolbar from './EditToolbar'
+import EditToolbar from './EditToolbar'
 // import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 // import { changePageTitle } from '../../../store/pageInfoReducer'
@@ -132,8 +132,8 @@ const EditHeader: FC = () => {
           </Space>
         </div>
         <div className={styles.main}>
-          中间
-          {/* <EditToolbar /> */}
+          {/* 中间 */}
+          <EditToolbar />
         </div>
         <div className={styles.right}>
           <Space>

@@ -68,17 +68,17 @@ export const componentsSlice = createSlice({
       }
     ),
 
-    // // 删除选中的组件
-    // removeSelectedComponent: produce((draft: ComponentsStateType) => {
-    //   const { componentList = [], selectedId: removedId } = draft
+    // 删除选中的组件
+    removeSelectedComponent: produce((draft: ComponentsStateType) => {
+      const { componentList = [], selectedId: removedId } = draft
 
-    //   // 重新计算 selectedId
-    //   const newSelectedId = getNextSelectedId(removedId, componentList)
-    //   draft.selectedId = newSelectedId
+      // 重新计算 selectedId
+      const newSelectedId = getNextSelectedId(removedId, componentList)
+      draft.selectedId = newSelectedId
 
-    //   const index = componentList.findIndex(c => c.fe_id === removedId)
-    //   componentList.splice(index, 1)
-    // }),
+      const index = componentList.findIndex(c => c.fe_id === removedId)
+      componentList.splice(index, 1)
+    }),
 
     // // 隐藏/显示 组件
     // changeComponentHidden: produce(
@@ -187,7 +187,7 @@ export const {
   changeSelectedId,
   addComponent,
   changeComponentProps,
-  // removeSelectedComponent,
+  removeSelectedComponent,
   // changeComponentHidden,
   // toggleComponentLocked,
   // copySelectedComponent,
