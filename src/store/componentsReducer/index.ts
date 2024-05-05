@@ -104,17 +104,17 @@ export const componentsSlice = createSlice({
       }
     ),
 
-    // // 锁定/解锁 组件
-    // toggleComponentLocked: produce(
-    //   (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string }>) => {
-    //     const { fe_id } = action.payload
+    // 锁定/解锁 组件
+    toggleComponentLocked: produce(
+      (draft: ComponentsStateType, action: PayloadAction<{ fe_id: string }>) => {
+        const { fe_id } = action.payload
 
-    //     const curComp = draft.componentList.find(c => c.fe_id === fe_id)
-    //     if (curComp) {
-    //       curComp.isLocked = !curComp.isLocked
-    //     }
-    //   }
-    // ),
+        const curComp = draft.componentList.find(c => c.fe_id === fe_id)
+        if (curComp) {
+          curComp.isLocked = !curComp.isLocked
+        }
+      }
+    ),
 
     // // 拷贝当前选中的组件
     // copySelectedComponent: produce((draft: ComponentsStateType) => {
@@ -189,7 +189,7 @@ export const {
   changeComponentProps,
   removeSelectedComponent,
   changeComponentHidden,
-  // toggleComponentLocked,
+  toggleComponentLocked,
   // copySelectedComponent,
   // pasteCopiedComponent,
   // selectPrevComponent,

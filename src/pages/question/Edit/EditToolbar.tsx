@@ -16,7 +16,7 @@ import { useDispatch } from 'react-redux'
 import {
   removeSelectedComponent,
   changeComponentHidden,
-  // toggleComponentLocked,
+  toggleComponentLocked,
   // copySelectedComponent,
   // pasteCopiedComponent,
   // moveComponent,
@@ -44,7 +44,7 @@ const EditToolbar: FC = () => {
 
   // 锁定组件
   function handleLock() {
-    // dispatch(toggleComponentLocked({ fe_id: selectedId }))
+    dispatch(toggleComponentLocked({ fe_id: selectedId }))
   }
 
   // 复制
