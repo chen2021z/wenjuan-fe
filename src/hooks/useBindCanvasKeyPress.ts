@@ -5,8 +5,8 @@ import {
   removeSelectedComponent,
   copySelectedComponent,
   pasteCopiedComponent,
-  // selectPrevComponent,
-  // selectNextComponent,
+  selectPrevComponent,
+  selectNextComponent,
 } from '../store/componentsReducer'
 
 /**
@@ -46,17 +46,17 @@ function useBindCanvasKeyPress() {
     dispatch(pasteCopiedComponent())
   })
 
-  // // 选中上一个
-  // useKeyPress('uparrow', () => {
-  //   if (!isActiveElementValid()) return
-  //   dispatch(selectPrevComponent())
-  // })
+  // 选中上一个
+  useKeyPress('uparrow', () => {
+    if (!isActiveElementValid()) return
+    dispatch(selectPrevComponent())
+  })
 
-  // // 选中下一个
-  // useKeyPress('downarrow', () => {
-  //   if (!isActiveElementValid()) return
-  //   dispatch(selectNextComponent())
-  // })
+  // 选中下一个
+  useKeyPress('downarrow', () => {
+    if (!isActiveElementValid()) return
+    dispatch(selectNextComponent())
+  })
 
   // // 撤销
   // useKeyPress(
