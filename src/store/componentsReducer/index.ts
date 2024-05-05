@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import produce from 'immer'
-// import cloneDeep from 'lodash.clonedeep'
+import cloneDeep from 'lodash.clonedeep'
 import { nanoid } from 'nanoid'
 // import { arrayMove } from '@dnd-kit/sortable'
 import { ComponentPropsType } from '../../components/QuestionComponents'
@@ -116,25 +116,25 @@ export const componentsSlice = createSlice({
       }
     ),
 
-    // // 拷贝当前选中的组件
-    // copySelectedComponent: produce((draft: ComponentsStateType) => {
-    //   const { selectedId, componentList = [] } = draft
-    //   const selectedComponent = componentList.find(c => c.fe_id === selectedId)
-    //   if (selectedComponent == null) return
-    //   draft.copiedComponent = cloneDeep(selectedComponent) // 深拷贝
-    // }),
+    // 拷贝当前选中的组件
+    copySelectedComponent: produce((draft: ComponentsStateType) => {
+      const { selectedId, componentList = [] } = draft
+      const selectedComponent = componentList.find(c => c.fe_id === selectedId)
+      if (selectedComponent == null) return
+      draft.copiedComponent = cloneDeep(selectedComponent) // 深拷贝
+    }),
 
-    // // 粘贴组件
-    // pasteCopiedComponent: produce((draft: ComponentsStateType) => {
-    //   const { copiedComponent } = draft
-    //   if (copiedComponent == null) return
+    // 粘贴组件
+    pasteCopiedComponent: produce((draft: ComponentsStateType) => {
+      const { copiedComponent } = draft
+      if (copiedComponent == null) return
 
-    //   // 要把 fe_id 给修改了，重要！！
-    //   copiedComponent.fe_id = nanoid()
+      // 要把 fe_id 给修改了，重要！！
+      copiedComponent.fe_id = nanoid()
 
-    //   // 插入 copiedComponent
-    //   insertNewComponent(draft, copiedComponent)
-    // }),
+      // 插入 copiedComponent
+      insertNewComponent(draft, copiedComponent)
+    }),
 
     // // 选中上一个
     // selectPrevComponent: produce((draft: ComponentsStateType) => {
@@ -190,8 +190,8 @@ export const {
   removeSelectedComponent,
   changeComponentHidden,
   toggleComponentLocked,
-  // copySelectedComponent,
-  // pasteCopiedComponent,
+  copySelectedComponent,
+  pasteCopiedComponent,
   // selectPrevComponent,
   // selectNextComponent,
   // changeComponentTitle,

@@ -17,8 +17,8 @@ import {
   removeSelectedComponent,
   changeComponentHidden,
   toggleComponentLocked,
-  // copySelectedComponent,
-  // pasteCopiedComponent,
+  copySelectedComponent,
+  pasteCopiedComponent,
   // moveComponent,
 } from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
@@ -49,12 +49,12 @@ const EditToolbar: FC = () => {
 
   // 复制
   function copy() {
-    // dispatch(copySelectedComponent())
+    dispatch(copySelectedComponent())
   }
 
   // 粘贴
   function paste() {
-    // dispatch(pasteCopiedComponent())
+    dispatch(pasteCopiedComponent())
   }
 
   // 上移
