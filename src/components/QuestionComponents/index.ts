@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import QuestionInputConf, { QuestionInputPropsType } from './QuestionInput/index'
 import QuestionTitleConf, { QuestionTitlePropsType } from './QuestionTitle'
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './QuestionParagraph'
-// import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
+import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
 // import QuestionTextareaConf, { QuestionTextareaPropsType } from './QuestionTextarea'
 // import QuestionRadioConf, {
 //   QuestionRadioPropsType,
@@ -16,8 +16,8 @@ import QuestionParagraphConf, { QuestionParagraphPropsType } from './QuestionPar
 // 统一，各个组件的 prop type
 export type ComponentPropsType = QuestionInputPropsType &
   QuestionTitlePropsType &
-  QuestionParagraphPropsType
-// QuestionInfoPropsType &
+  QuestionParagraphPropsType &
+  QuestionInfoPropsType
 // QuestionTextareaPropsType &
 // QuestionRadioPropsType &
 // QuestionCheckboxPropsType
@@ -40,7 +40,7 @@ const componentConfList: ComponentConfType[] = [
   QuestionInputConf,
   QuestionTitleConf,
   QuestionParagraphConf,
-  // QuestionInfoConf,
+  QuestionInfoConf,
   // QuestionTextareaConf,
   // QuestionRadioConf,
   // QuestionCheckboxConf,
@@ -51,8 +51,7 @@ export const componentConfGroup = [
   {
     groupId: 'textGroup',
     groupName: '文本显示',
-    components: [QuestionTitleConf, QuestionParagraphConf],
-    // components: [QuestionInfoConf, QuestionTitleConf, QuestionParagraphConf],
+    components: [QuestionInfoConf, QuestionTitleConf, QuestionParagraphConf],
   },
   {
     groupId: 'inputGroup',
