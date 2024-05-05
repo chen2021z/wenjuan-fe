@@ -8,6 +8,7 @@ import { getComponentConfByType } from '../../../components/QuestionComponents'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 import { useDispatch } from 'react-redux'
 import classNames from 'classnames'
+import useBindCanvasKeyPress from '../../../hooks/useBindCanvasKeyPress'
 
 type PropsType = {
   loading: boolean
@@ -31,6 +32,9 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
     event.stopPropagation()
     dispatch(changeSelectedId(id))
   }
+
+  // 绑定快捷键
+  useBindCanvasKeyPress()
 
   if (loading) {
     return (
