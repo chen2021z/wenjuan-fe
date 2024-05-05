@@ -3,7 +3,7 @@ import QuestionInputConf, { QuestionInputPropsType } from './QuestionInput/index
 import QuestionTitleConf, { QuestionTitlePropsType } from './QuestionTitle'
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './QuestionParagraph'
 import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
-// import QuestionTextareaConf, { QuestionTextareaPropsType } from './QuestionTextarea'
+import QuestionTextareaConf, { QuestionTextareaPropsType } from './QuestionTextarea'
 // import QuestionRadioConf, {
 //   QuestionRadioPropsType,
 //   QuestionRadioStatPropsType,
@@ -17,8 +17,8 @@ import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
 export type ComponentPropsType = QuestionInputPropsType &
   QuestionTitlePropsType &
   QuestionParagraphPropsType &
-  QuestionInfoPropsType
-// QuestionTextareaPropsType &
+  QuestionInfoPropsType &
+  QuestionTextareaPropsType
 // QuestionRadioPropsType &
 // QuestionCheckboxPropsType
 
@@ -41,7 +41,7 @@ const componentConfList: ComponentConfType[] = [
   QuestionTitleConf,
   QuestionParagraphConf,
   QuestionInfoConf,
-  // QuestionTextareaConf,
+  QuestionTextareaConf,
   // QuestionRadioConf,
   // QuestionCheckboxConf,
 ]
@@ -56,8 +56,7 @@ export const componentConfGroup = [
   {
     groupId: 'inputGroup',
     groupName: '用户输入',
-    components: [QuestionInputConf],
-    // components: [QuestionInputConf, QuestionTextareaConf],
+    components: [QuestionInputConf, QuestionTextareaConf],
   },
   // {
   //   groupId: 'chooseGroup',
