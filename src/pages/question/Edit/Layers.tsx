@@ -1,6 +1,6 @@
-import React, { FC, useState, ChangeEvent } from 'react'
+import React, { FC, useState, ChangeEvent, useRef, useEffect } from 'react'
 import classNames from 'classnames'
-import { message, Input, Button, Space } from 'antd'
+import { message, Input, Button, Space, InputRef } from 'antd'
 import { EyeInvisibleOutlined, LockOutlined } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
@@ -8,6 +8,7 @@ import {
   changeSelectedId,
   toggleComponentLocked,
   changeComponentHidden,
+  changeComponentTitle,
 } from '../../../store/componentsReducer'
 // import SortableContainer from '../../../components/DragSortable/SortableContainer'
 // import SortableItem from '../../../components/DragSortable/SortableItem'
@@ -16,6 +17,7 @@ import styles from './Layers.module.scss'
 const Layers: FC = () => {
   const { componentList, selectedId } = useGetComponentInfo()
   const dispatch = useDispatch()
+  const inputRef = useRef<InputRef>(null)
 
   // 记录当前正在修改标题的组件
   const [changingTitleId, setChangingTitleId] = useState('')
@@ -30,7 +32,7 @@ const Layers: FC = () => {
     if (fe_id !== selectedId) {
       // 当前组件未被选中，执行选中
       dispatch(changeSelectedId(fe_id))
-      // setChangingTitleId('')
+      setChangingTitleId('')
       return
     }
 
@@ -38,13 +40,21 @@ const Layers: FC = () => {
     setChangingTitleId(fe_id)
   }
 
+  // 保证显示时自动聚焦
+  useEffect(() => {
+    changingTitleId &&
+      inputRef.current?.focus({
+        cursor: 'end',
+      })
+  }, [changingTitleId])
+
   // 修改标题
-  // function changeTitle(event: ChangeEvent<HTMLInputElement>) {
-  //   const newTitle = event.target.value.trim()
-  //   if (!newTitle) return
-  //   if (!selectedId) return
-  //   dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
-  // }
+  function changeTitle(event: ChangeEvent<HTMLInputElement>) {
+    const newTitle = event.target.value.trim()
+    if (!newTitle) return
+    if (!selectedId) return
+    dispatch(changeComponentTitle({ fe_id: selectedId, title: newTitle }))
+  }
 
   // 切换 隐藏/显示
   function changeHidden(fe_id: string, isHidden: boolean) {
@@ -82,7 +92,16 @@ const Layers: FC = () => {
         return (
           <div className={styles.wrapper} key={fe_id}>
             <div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
-              {title}
+              {fe_id === changingTitleId && (
+                <Input
+                  value={title}
+                  ref={inputRef}
+                  onChange={changeTitle}
+                  onPressEnter={() => setChangingTitleId('')}
+                  onBlur={() => setChangingTitleId('')}
+                />
+              )}
+              {fe_id !== changingTitleId && title}
             </div>
             <div className={styles.handler}>
               <Space>
