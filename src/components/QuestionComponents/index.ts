@@ -4,10 +4,10 @@ import QuestionTitleConf, { QuestionTitlePropsType } from './QuestionTitle'
 import QuestionParagraphConf, { QuestionParagraphPropsType } from './QuestionParagraph'
 import QuestionInfoConf, { QuestionInfoPropsType } from './QuestionInfo'
 import QuestionTextareaConf, { QuestionTextareaPropsType } from './QuestionTextarea'
-// import QuestionRadioConf, {
-//   QuestionRadioPropsType,
-//   QuestionRadioStatPropsType,
-// } from './QuestionRadio'
+import QuestionRadioConf, {
+  QuestionRadioPropsType,
+  QuestionRadioStatPropsType,
+} from './QuestionRadio'
 // import QuestionCheckboxConf, {
 //   QuestionCheckboxPropsType,
 //   QuestionCheckboxStatPropsType,
@@ -18,8 +18,8 @@ export type ComponentPropsType = QuestionInputPropsType &
   QuestionTitlePropsType &
   QuestionParagraphPropsType &
   QuestionInfoPropsType &
-  QuestionTextareaPropsType
-// QuestionRadioPropsType &
+  QuestionTextareaPropsType &
+  QuestionRadioPropsType
 // QuestionCheckboxPropsType
 
 // 统一，各个组件的统计属性类型
@@ -42,7 +42,7 @@ const componentConfList: ComponentConfType[] = [
   QuestionParagraphConf,
   QuestionInfoConf,
   QuestionTextareaConf,
-  // QuestionRadioConf,
+  QuestionRadioConf,
   // QuestionCheckboxConf,
 ]
 
@@ -58,11 +58,12 @@ export const componentConfGroup = [
     groupName: '用户输入',
     components: [QuestionInputConf, QuestionTextareaConf],
   },
-  // {
-  //   groupId: 'chooseGroup',
-  //   groupName: '用户选择',
-  //   components: [QuestionRadioConf, QuestionCheckboxConf],
-  // },
+  {
+    groupId: 'chooseGroup',
+    groupName: '用户选择',
+    components: [QuestionRadioConf],
+    // components: [QuestionRadioConf, QuestionCheckboxConf],
+  },
 ]
 
 export function getComponentConfByType(type: string) {
