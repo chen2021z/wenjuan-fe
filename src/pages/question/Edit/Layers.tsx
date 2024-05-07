@@ -58,12 +58,12 @@ const Layers: FC = () => {
 
   // 切换 隐藏/显示
   function changeHidden(fe_id: string, isHidden: boolean) {
-    // dispatch(changeComponentHidden({ fe_id, isHidden }))
+    dispatch(changeComponentHidden({ fe_id, isHidden }))
   }
 
   // 切换 锁定/解锁
   function changeLocked(fe_id: string) {
-    // dispatch(toggleComponentLocked({ fe_id }))
+    dispatch(toggleComponentLocked({ fe_id }))
   }
 
   // SortableContainer 组件的 items 属性，需要每个 item 都有 id
