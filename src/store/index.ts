@@ -6,7 +6,7 @@ import pageInfoReducer, { PageInfoType } from './pageInfoReducer'
 export type StateType = {
   user: UserStateType
   components: ComponentsStateType
-  pageInfoReducer: PageInfoType
+  pageInfo: PageInfoType
 }
 
 export default configureStore({
