@@ -1,15 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit';
-import userReducer, { UserStateType } from './userReducer';
-import componentsReducer, { ComponentsStateType } from './componentsReducer';
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer, { UserStateType } from './userReducer'
+import componentsReducer, { ComponentsStateType } from './componentsReducer'
+import pageInfoReducer, { PageInfoType } from './pageInfoReducer'
 
 export type StateType = {
-  user:UserStateType
+  user: UserStateType
   components: ComponentsStateType
+  pageInfoReducer: PageInfoType
 }
 
 export default configureStore({
-  reducer:{
+  reducer: {
     user: userReducer,
-    components: componentsReducer
-  }
+    components: componentsReducer,
+    pageInfo: pageInfoReducer,
+  },
 })
