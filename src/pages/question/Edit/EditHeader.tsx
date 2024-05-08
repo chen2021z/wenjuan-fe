@@ -45,43 +45,43 @@ const TitleElem: FC = () => {
   )
 }
 
-// // 保存按钮
-// const SaveButton: FC = () => {
-//   const { id } = useParams()
-//   const { componentList = [] } = useGetComponentInfo()
-//   const pageInfo = useGetPageInfo()
+// 保存按钮
+const SaveButton: FC = () => {
+  const { id } = useParams()
+  const { componentList = [] } = useGetComponentInfo()
+  const pageInfo = useGetPageInfo()
 
-//   const { loading, run: save } = useRequest(
-//     async () => {
-//       if (!id) return
-//       await updateQuestionService(id, { ...pageInfo, componentList })
-//     },
-//     { manual: true }
-//   )
+  const { loading, run: save } = useRequest(
+    async () => {
+      if (!id) return
+      await updateQuestionService(id, { ...pageInfo, componentList })
+    },
+    { manual: true }
+  )
 
-//   // 快捷键
-//   useKeyPress(['ctrl.s', 'meta.s'], (event: KeyboardEvent) => {
-//     event.preventDefault()
-//     if (!loading) save()
-//   })
+  // 快捷键
+  useKeyPress(['ctrl.s', 'meta.s'], (event: KeyboardEvent) => {
+    event.preventDefault()
+    if (!loading) save()
+  })
 
-//   // 自定保存（不是定期保存，不是定时器）
-//   useDebounceEffect(
-//     () => {
-//       save()
-//     },
-//     [componentList, pageInfo],
-//     {
-//       wait: 1000,
-//     }
-//   )
+  // 自定保存（不是定期保存，不是定时器）
+  // useDebounceEffect(
+  //   () => {
+  //     save()
+  //   },
+  //   [componentList, pageInfo],
+  //   {
+  //     wait: 1000,
+  //   }
+  // )
 
-//   return (
-//     <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>
-//       保存
-//     </Button>
-//   )
-// }
+  return (
+    <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>
+      保存
+    </Button>
+  )
+}
 
 // // 发布按钮
 // const PublishButton: FC = () => {
@@ -136,10 +136,9 @@ const EditHeader: FC = () => {
         </div>
         <div className={styles.right}>
           <Space>
-            <Button>保存</Button>
+            <SaveButton />
             <Button type="primary">发布</Button>
-            {/* <SaveButton />
-            <PublishButton /> */}
+            {/* <PublishButton /> */}
           </Space>
         </div>
       </div>
