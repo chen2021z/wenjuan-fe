@@ -66,15 +66,15 @@ const SaveButton: FC = () => {
   })
 
   // 自定保存（不是定期保存，不是定时器）
-  // useDebounceEffect(
-  //   () => {
-  //     save()
-  //   },
-  //   [componentList, pageInfo],
-  //   {
-  //     wait: 1000,
-  //   }
-  // )
+  useDebounceEffect(
+    () => {
+      save()
+    },
+    [componentList, pageInfo],
+    {
+      wait: 3000,
+    }
+  )
 
   return (
     <Button onClick={save} disabled={loading} icon={loading ? <LoadingOutlined /> : null}>
