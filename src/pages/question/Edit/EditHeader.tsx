@@ -83,37 +83,37 @@ const SaveButton: FC = () => {
   )
 }
 
-// // 发布按钮
-// const PublishButton: FC = () => {
-//   const nav = useNavigate()
-//   const { id } = useParams()
-//   const { componentList = [] } = useGetComponentInfo()
-//   const pageInfo = useGetPageInfo()
+// 发布按钮
+const PublishButton: FC = () => {
+  const nav = useNavigate()
+  const { id } = useParams()
+  const { componentList = [] } = useGetComponentInfo()
+  const pageInfo = useGetPageInfo()
 
-//   const { loading, run: pub } = useRequest(
-//     async () => {
-//       if (!id) return
-//       await updateQuestionService(id, {
-//         ...pageInfo,
-//         componentList,
-//         isPublished: true, // 标志着问卷已经被发布
-//       })
-//     },
-//     {
-//       manual: true,
-//       onSuccess() {
-//         message.success('发布成功')
-//         nav('/question/stat/' + id) // 发布成功，跳转到统计页面
-//       },
-//     }
-//   )
+  const { loading, run: pub } = useRequest(
+    async () => {
+      if (!id) return
+      await updateQuestionService(id, {
+        ...pageInfo,
+        componentList,
+        isPublished: true, // 标志着问卷已经被发布
+      })
+    },
+    {
+      manual: true,
+      onSuccess() {
+        message.success('发布成功')
+        nav('/question/stat/' + id) // 发布成功，跳转到统计页面
+      },
+    }
+  )
 
-//   return (
-//     <Button type="primary" onClick={pub} disabled={loading}>
-//       发布
-//     </Button>
-//   )
-// }
+  return (
+    <Button type="primary" onClick={pub} disabled={loading}>
+      发布
+    </Button>
+  )
+}
 
 // 编辑器头部
 const EditHeader: FC = () => {
@@ -137,8 +137,7 @@ const EditHeader: FC = () => {
         <div className={styles.right}>
           <Space>
             <SaveButton />
-            <Button type="primary">发布</Button>
-            {/* <PublishButton /> */}
+            <PublishButton />
           </Space>
         </div>
       </div>
