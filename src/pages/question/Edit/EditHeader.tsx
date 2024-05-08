@@ -5,45 +5,45 @@ import { Button, Typography, Space, Input, message } from 'antd'
 import { LeftOutlined, EditOutlined, LoadingOutlined } from '@ant-design/icons'
 import { useRequest, useKeyPress, useDebounceEffect } from 'ahooks'
 import EditToolbar from './EditToolbar'
-// import useGetPageInfo from '../../../hooks/useGetPageInfo'
+import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
-// import { changePageTitle } from '../../../store/pageInfoReducer'
+import { changePageTitle } from '../../../store/pageInfoReducer'
 import { updateQuestionService } from '../../../services/question'
 import styles from './EditHeader.module.scss'
 
 const { Title } = Typography
 
-// // 显示和修改标题
-// const TitleElem: FC = () => {
-//   const { title } = useGetPageInfo()
-//   const dispatch = useDispatch()
+// 显示和修改标题
+const TitleElem: FC = () => {
+  const { title } = useGetPageInfo()
+  const dispatch = useDispatch()
 
-//   const [editState, SetEditState] = useState(false)
+  const [editState, SetEditState] = useState(false)
 
-//   function handleChange(event: ChangeEvent<HTMLInputElement>) {
-//     const newTitle = event.target.value.trim()
-//     if (!newTitle) return
-//     dispatch(changePageTitle(newTitle))
-//   }
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
+    const newTitle = event.target.value.trim()
+    if (!newTitle) return
+    dispatch(changePageTitle(newTitle))
+  }
 
-//   if (editState) {
-//     return (
-//       <Input
-//         value={title}
-//         onChange={handleChange}
-//         onPressEnter={() => SetEditState(false)}
-//         onBlur={() => SetEditState(false)}
-//       />
-//     )
-//   }
+  if (editState) {
+    return (
+      <Input
+        value={title}
+        onChange={handleChange}
+        onPressEnter={() => SetEditState(false)}
+        onBlur={() => SetEditState(false)}
+      />
+    )
+  }
 
-//   return (
-//     <Space>
-//       <Title>{title}</Title>
-//       <Button icon={<EditOutlined />} type="text" onClick={() => SetEditState(true)} />
-//     </Space>
-//   )
-// }
+  return (
+    <Space>
+      <Title>{title}</Title>
+      <Button icon={<EditOutlined />} type="text" onClick={() => SetEditState(true)} />
+    </Space>
+  )
+}
 
 // // 保存按钮
 // const SaveButton: FC = () => {
@@ -127,8 +127,7 @@ const EditHeader: FC = () => {
             <Button type="link" icon={<LeftOutlined />} onClick={() => nav(-1)}>
               返回
             </Button>
-            <Title>文件标题</Title>
-            {/* <TitleElem /> */}
+            <TitleElem />
           </Space>
         </div>
         <div className={styles.main}>
