@@ -9,9 +9,10 @@ import {
   toggleComponentLocked,
   changeComponentHidden,
   changeComponentTitle,
+  moveComponent,
 } from '../../../store/componentsReducer'
-// import SortableContainer from '../../../components/DragSortable/SortableContainer'
-// import SortableItem from '../../../components/DragSortable/SortableItem'
+import SortableContainer from '../../../components/DragSortable/SortableContainer'
+import SortableItem from '../../../components/DragSortable/SortableItem'
 import styles from './Layers.module.scss'
 
 const Layers: FC = () => {
@@ -72,12 +73,12 @@ const Layers: FC = () => {
   })
 
   // 拖拽排序结束
-  // function handleDragEnd(oldIndex: number, newIndex: number) {
-  //   dispatch(moveComponent({ oldIndex, newIndex }))
-  // }
+  function handleDragEnd(oldIndex: number, newIndex: number) {
+    dispatch(moveComponent({ oldIndex, newIndex }))
+  }
 
   return (
-    <>
+    <SortableContainer items={componentListWithId} onDragEnd={handleDragEnd}>
       {componentList.map(c => {
         const { fe_id, title, isHidden, isLocked } = c
 
@@ -90,43 +91,45 @@ const Layers: FC = () => {
         })
 
         return (
-          <div className={styles.wrapper} key={fe_id}>
-            <div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
-              {fe_id === changingTitleId && (
-                <Input
-                  value={title}
-                  ref={inputRef}
-                  onChange={changeTitle}
-                  onPressEnter={() => setChangingTitleId('')}
-                  onBlur={() => setChangingTitleId('')}
-                />
-              )}
-              {fe_id !== changingTitleId && title}
+          <SortableItem key={fe_id} id={fe_id}>
+            <div className={styles.wrapper}>
+              <div className={titleClassName} onClick={() => handleTitleClick(fe_id)}>
+                {fe_id === changingTitleId && (
+                  <Input
+                    value={title}
+                    ref={inputRef}
+                    onChange={changeTitle}
+                    onPressEnter={() => setChangingTitleId('')}
+                    onBlur={() => setChangingTitleId('')}
+                  />
+                )}
+                {fe_id !== changingTitleId && title}
+              </div>
+              <div className={styles.handler}>
+                <Space>
+                  <Button
+                    size="small"
+                    shape="circle"
+                    className={!isHidden ? styles.btn : ''}
+                    icon={<EyeInvisibleOutlined />}
+                    type={isHidden ? 'primary' : 'text'}
+                    onClick={() => changeHidden(fe_id, !isHidden)}
+                  />
+                  <Button
+                    size="small"
+                    shape="circle"
+                    className={!isLocked ? styles.btn : ''}
+                    icon={<LockOutlined />}
+                    type={isLocked ? 'primary' : 'text'}
+                    onClick={() => changeLocked(fe_id)}
+                  />
+                </Space>
+              </div>
             </div>
-            <div className={styles.handler}>
-              <Space>
-                <Button
-                  size="small"
-                  shape="circle"
-                  className={!isHidden ? styles.btn : ''}
-                  icon={<EyeInvisibleOutlined />}
-                  type={isHidden ? 'primary' : 'text'}
-                  onClick={() => changeHidden(fe_id, !isHidden)}
-                />
-                <Button
-                  size="small"
-                  shape="circle"
-                  className={!isLocked ? styles.btn : ''}
-                  icon={<LockOutlined />}
-                  type={isLocked ? 'primary' : 'text'}
-                  onClick={() => changeLocked(fe_id)}
-                />
-              </Space>
-            </div>
-          </div>
+          </SortableItem>
         )
       })}
-    </>
+    </SortableContainer>
   )
 }
 

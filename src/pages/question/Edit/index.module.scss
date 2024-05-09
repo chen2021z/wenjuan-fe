@@ -61,14 +61,7 @@
       left: 50%;
       transform: translateX(-50%) translateY(-50%);
       box-shadow: 0 2px 10px #0000001f;
-      overflow: hidden;
-
-      &:hover {
-        overflow-y: auto;
-      }
-
-
-
+      overflow-y: auto;
     }
   }
 
