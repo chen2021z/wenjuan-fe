@@ -19,7 +19,7 @@ import {
   toggleComponentLocked,
   copySelectedComponent,
   pasteCopiedComponent,
-  // moveComponent,
+  moveComponent,
 } from '../../../store/componentsReducer'
 import useGetComponentInfo from '../../../hooks/useGetComponentInfo'
 
@@ -60,13 +60,13 @@ const EditToolbar: FC = () => {
   // 上移
   function moveUp() {
     if (isFirst) return
-    // dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex - 1 }))
+    dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex - 1 }))
   }
 
   // 下移
   function moveDown() {
     if (isLast) return
-    // dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex + 1 }))
+    dispatch(moveComponent({ oldIndex: selectedIndex, newIndex: selectedIndex + 1 }))
   }
 
   // 撤销
