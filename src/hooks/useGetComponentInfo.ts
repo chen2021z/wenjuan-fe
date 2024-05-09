@@ -5,8 +5,7 @@ import { ComponentsStateType } from '../store/componentsReducer'
 function useGetComponentInfo() {
   // redux store
   const components = useSelector<StateType>(
-    state => state.components
-    // state => state.components.present
+    state => state.components.present
   ) as ComponentsStateType
 
   const { componentList = [], selectedId, copiedComponent } = components

@@ -12,7 +12,7 @@ import {
   RedoOutlined,
 } from '@ant-design/icons'
 import { useDispatch } from 'react-redux'
-// import { ActionCreators as UndoActionCreators } from 'redux-undo'
+import { ActionCreators as UndoActionCreators } from 'redux-undo'
 import {
   removeSelectedComponent,
   changeComponentHidden,
@@ -71,12 +71,12 @@ const EditToolbar: FC = () => {
 
   // 撤销
   function undo() {
-    // dispatch(UndoActionCreators.undo())
+    dispatch(UndoActionCreators.undo())
   }
 
   // 重做
   function redo() {
-    // dispatch(UndoActionCreators.redo())
+    dispatch(UndoActionCreators.redo())
   }
 
   return (
