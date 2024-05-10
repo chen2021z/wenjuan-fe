@@ -7,6 +7,7 @@ import useGetPageInfo from '../../../hooks/useGetPageInfo'
 import StatHeader from './StatHeader'
 import styles from './index.module.scss'
 import ComponentList from './ComponentList'
+import PageStat from './PageStat'
 
 const Stat: FC = () => {
   const nav = useNavigate()
@@ -54,7 +55,13 @@ const Stat: FC = () => {
             setSelectedComponentType={setSelectedComponentType}
           />
         </div>
-        <div className={styles.main}></div>
+        <div className={styles.main}>
+          <PageStat
+            selectedComponentId={selectedComponentId}
+            setSelectedComponentId={setSelectedComponentId}
+            setSelectedComponentType={setSelectedComponentType}
+          />
+        </div>
         <div className={styles.right}></div>
       </>
     )
