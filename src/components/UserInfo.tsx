@@ -17,8 +17,6 @@ const UserInfo: FC = () => {
   // const { data } = useRequest(getUserInfoService) // ajax
   // const { username, nickname } = data || {}
   const { username, nickname } = useGetUserInfo() // 从 redux 中获取用户信息
-  console.log(nickname, 888);
-  
 
   function logout() {
     dispatch(logoutReducer()) // 清空了 redux user 数据
